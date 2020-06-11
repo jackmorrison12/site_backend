@@ -20,7 +20,4 @@ var apiFragmentSchema = mongoose.Schema({
     }
 });
 // Export Contact model
-var APIFragment = module.exports = mongoose.model('apiFragment',apiFragmentSchema);
-module.exports.get = function (callback, limit) {
-    APIFragment.find(callback).limit(limit);
-}
+var APIFragment = module.exports = mongoose.model('APIFragment',apiFragmentSchema);

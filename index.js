@@ -136,11 +136,12 @@ app.post("/getFragmentsFromDate", async (req, res) => {
 // Launch app to listen to specified port
 app.listen(port, async function () {
   console.log("Running personal site API on port " + port);
-  //   res = await APIFragmentHandler.insertFragment(
-  //     "chicken1",
-  //     "url",
-  //     "test1",
-  //     "2020-10-02 12:50 UTC"
-  //   );
-  //   console.log(res);
+  // res = await APIFragmentHandler.insertFragment(
+  //   "chicken1",
+  //   "lastfm",
+  //   "imgurl",
+  //   "body",
+  //   "2020-10-02 12:50 UTC"
+  // );
+  // console.log(res);
 });

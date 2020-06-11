@@ -14,9 +14,10 @@ module.exports = class APIFragmentHandler {
     });
     return res;
   }
-  static async insertFragment(type, image, body, occur_date) {
+  static async insertFragment(type, api, image, body, occur_date) {
     var fragment = new APIFragment({
       type: type,
+      api: api,
       image: image,
       body: body,
       occur_date: occur_date,

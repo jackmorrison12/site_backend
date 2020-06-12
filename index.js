@@ -1,5 +1,6 @@
 // import { APIFragmentHandler } from "./apiFragmentHandler"
 var ApiFragmentHandler = require("./apiFragmentHandler.js");
+var ApiLastUpdatedHandler = require("./apiLastUpdatedHandler.js");
 // Import express
 let express = require("express");
 // Import Body parser
@@ -11,6 +12,7 @@ let app = express();
 
 // Import routes
 const APIFragmentHandler = require("./apiFragmentHandler.js");
+const APILastUpdatedHandler = require("./apiLastUpdatedHandler.js");
 
 // Configure bodyparser to handle post requests
 app.use(
@@ -136,6 +138,8 @@ app.post("/getFragmentsFromDate", async (req, res) => {
 // Launch app to listen to specified port
 app.listen(port, async function () {
   console.log("Running personal site API on port " + port);
+  // res = await APILastUpdatedHandler.getLastUpdated("lastfm");
+  // console.log(res);
   // res = await APIFragmentHandler.insertFragment(
   //   "chicken1",
   //   "lastfm",

@@ -21,13 +21,10 @@ module.exports = class APIManager {
 
     const res = await ApiLastUpdatedHandler.getAllLastUpdated();
 
-    console.log(res);
-
     res.forEach((item) => {
-      console.log(apis[item.api]);
       if (Date.now() - apis[item.api].update_frequency > item.last_accessed) {
         console.log("Updating " + item.api);
-        apis[item.api].handler.update();
+        apis[item.api].handler.update(item.last_accessed);
       }
     });
   }

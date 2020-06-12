@@ -3,7 +3,11 @@ APILastUpdated = require("./apiLastUpdatedModel");
 module.exports = class APILastUpdatedHandler {
   constructor() {}
   static async getLastUpdated(api) {
-    const res = APILastUpdated.find({ api: api });
+    const res = await APILastUpdated.find({ api: api });
+    return res;
+  }
+  static async getAllLastUpdated() {
+    const res = await APILastUpdated.find();
     return res;
   }
   static async update(api) {

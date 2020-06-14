@@ -15,6 +15,9 @@ let app = express();
 const APIFragmentHandler = require("./apiFragmentHandler.js");
 const APILastUpdatedHandler = require("./apiLastUpdatedHandler.js");
 
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
 // Configure bodyparser to handle post requests
 app.use(
   bodyParser.urlencoded({
@@ -23,11 +26,7 @@ app.use(
 );
 app.use(bodyParser.json());
 
-var uristring =
-  process.env.MONGODB_URI ||
-  process.env.MONGOLAB_URI ||
-  process.env.MONGOHQ_URL ||
-  "mongodb://localhost/site_backend";
+var uristring = process.env.MONGODB_URI || "mongodb://localhost/site_backend";
 
 // Connect to Mongoose and set connection variable
 mongoose.connect(uristring, {

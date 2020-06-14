@@ -1,5 +1,29 @@
 APIFragment = require("./apiFragmentModel");
 
+function lastSunday(month, year) {
+  var d = new Date();
+  var lastDayOfMonth = new Date(
+    Date.UTC(year || d.getFullYear(), month + 1, 0)
+  );
+  var day = lastDayOfMonth.getDay();
+  return new Date(
+    Date.UTC(
+      lastDayOfMonth.getFullYear(),
+      lastDayOfMonth.getMonth(),
+      lastDayOfMonth.getDate() - day
+    )
+  );
+}
+
+function isBST(date) {
+  var d = new Date(Date.parse(date));
+  var starts = lastSunday(2, d.getFullYear());
+  starts.setHours(1);
+  var ends = lastSunday(9, d.getFullYear());
+  starts.setHours(1);
+  return d.getTime() >= starts.getTime() && d.getTime() < ends.getTime();
+}
+
 module.exports = class APIFragmentHandler {
   constructor() {}
   static async getnRecentFragments(n) {
@@ -9,7 +33,16 @@ module.exports = class APIFragmentHandler {
     return res;
   }
   static async getFragmentsFromDate(date) {
-    const res = APIFragment.find({ occur_date: date }).sort({
+    var upperDate = new Date(Date.parse(date) + 86400000);
+    if (isBST(date)) {
+      date = new Date(Date.parse(date) - 3600000);
+      upperDate = new Date(Date.parse(date) + 86400000);
+      console.log(date);
+      console.log(upperDate);
+    }
+    const res = APIFragment.find({
+      occur_date: { $gte: date, $lt: upperDate },
+    }).sort({
       occur_date: "descending",
     });
     return res;

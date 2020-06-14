@@ -130,6 +130,7 @@ app.post("/getnFragments", async (req, res) => {
 
 app.post("/getFragmentsFromDate", async (req, res) => {
   console.log("Getting fragments from date " + req.body.date);
+  console.log(req.body.date);
   result = await APIFragmentHandler.getFragmentsFromDate(req.body.date);
   console.log(result);
   res.send(result);
@@ -145,11 +146,12 @@ app.listen(port, async function () {
 
   // console.log(res);
   // res = await APIFragmentHandler.insertFragment(
-  //   "chicken1",
+  //   "listen",
   //   "lastfm",
   //   "imgurl",
   //   "body",
-  //   "2020-10-02 12:50 UTC"
+  //   "1592142682000"
   // );
   // console.log(res);
+
 });

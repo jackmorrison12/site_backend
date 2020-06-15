@@ -27,7 +27,6 @@ module.exports = class LastFMHandler {
           try {
             const totalPages = data.recenttracks["@attr"].totalPages;
             for (const item of data.recenttracks.track) {
-              console.log(item);
               var time = null;
               if (item["@attr"] && item["@attr"].nowplaying) {
                 time = Date.now().toString();
@@ -41,7 +40,6 @@ module.exports = class LastFMHandler {
                 "Listened to " + item.name + " by " + item.artist["#text"],
                 time
               );
-              console.log(res);
             }
             if (totalPages > 1) {
               var i = 0;
@@ -65,7 +63,6 @@ module.exports = class LastFMHandler {
                               inner_item.artist["#text"],
                             (inner_item.date.uts * 1000).toString()
                           );
-                          console.log(res);
                         }
                       } catch (err) {
                         console.log(err);

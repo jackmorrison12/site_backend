@@ -37,8 +37,6 @@ module.exports = class APIFragmentHandler {
     if (isBST(date)) {
       date = new Date(Date.parse(date) - 3600000);
       upperDate = new Date(Date.parse(date) + 86400000);
-      console.log(date);
-      console.log(upperDate);
     }
     const res = APIFragment.find({
       occur_date: { $gte: date, $lt: upperDate },

@@ -17,9 +17,13 @@ module.exports = class LastFMHandler {
 
   static async update(last_accessed) {
     console.log("Updating lastfm...");
-    var res = await APILastUpdatedHandler.getLastUpdated("lastfm");
-    var last_accessed = Math.floor(res[0].last_accessed.getTime() / 1000);
+    // var res = await APILastUpdatedHandler.getLastUpdated("lastfm"); // Check from last check
+    // var last_accessed = Math.floor(res[0].last_accessed.getTime() / 1000);
     // last_accessed = Math.floor((Date.now()/1000) - 1209600) // Update last 2 weeks
+    var res = await APIFragmentHandler.getMostRecentFragment("lastfm");
+    var last_accessed = Math.floor(
+      (Date.parse(res[0].occur_date) + 60000) / 1000
+    ); // Checks from one minute after the last song was recorded
     var request = await lastfm.request("user.getRecentTracks", {
       user: "jackmorrison12",
       from: last_accessed,

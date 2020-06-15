@@ -162,4 +162,9 @@ app.listen(port, async function () {
   //   "1592142682000"
   // );
   // console.log(res);
+
+  // res = await APIFragmentHandler.getMostRecentFragment("lastfm");
+  // console.log(res[0].occur_date);
+  // last_accessed = Math.floor(Date.parse(res[0].occur_date) / 1000);
+  // console.log(last_accessed);
 });

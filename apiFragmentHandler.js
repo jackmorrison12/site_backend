@@ -32,6 +32,13 @@ module.exports = class APIFragmentHandler {
       .limit(parseInt(n));
     return res;
   }
+  static async getMostRecentFragment(api) {
+    const res = APIFragment.find({ api: api })
+      .sort({ occur_date: "descending" })
+      .limit(1);
+    return res;
+  }
+
   static async getFragmentsFromDate(date) {
     var upperDate = new Date(Date.parse(date) + 86400000);
     if (isBST(date)) {

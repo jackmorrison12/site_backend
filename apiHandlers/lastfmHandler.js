@@ -107,6 +107,7 @@ module.exports = class LastFMHandler {
 
             var res = await APILastUpdatedHandler.update("lastfm");
             console.log(res);
+            await new Promise((r) => setTimeout(r, 2000));
           } catch (err) {
             console.log(err);
             return;

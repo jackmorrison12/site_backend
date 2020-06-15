@@ -51,7 +51,6 @@ app.get("/", (req, res) =>
 
 app.get("/getAllFragments", async (req, res) => {
   APIManager.update();
-  await new Promise((r) => setTimeout(r, 2000));
   console.log("Getting All Fragments");
   result = await APIFragmentHandler.getnRecentFragments();
   console.log(result);
@@ -60,7 +59,6 @@ app.get("/getAllFragments", async (req, res) => {
 
 app.get("/getSummary", async (req, res) => {
   APIManager.update();
-  await new Promise((r) => setTimeout(r, 2000));
   console.log("Getting Summary");
   result = await APIFragmentHandler.getnRecentFragments();
 
@@ -80,7 +78,6 @@ app.get("/getSummary", async (req, res) => {
 
 app.post("/getSummaryForDate", async (req, res) => {
   APIManager.update();
-  await new Promise((r) => setTimeout(r, 2000));
   console.log("Getting summary for date " + req.body.date);
   result = await APIFragmentHandler.getFragmentsFromDate(req.body.date);
 
@@ -129,7 +126,6 @@ app.post("/getSummaryForDate", async (req, res) => {
 
 app.post("/getnFragments", async (req, res) => {
   APIManager.update();
-  await new Promise((r) => setTimeout(r, 2000));
   console.log("Getting " + req.body.n + " Fragments");
   result = await APIFragmentHandler.getnRecentFragments(req.body.n);
   console.log(result);
@@ -138,7 +134,6 @@ app.post("/getnFragments", async (req, res) => {
 
 app.post("/getFragmentsFromDate", async (req, res) => {
   APIManager.update();
-  await new Promise((r) => setTimeout(r, 2000));
   console.log("Getting fragments from date " + req.body.date);
   result = await APIFragmentHandler.getFragmentsFromDate(req.body.date);
   // console.log(result);

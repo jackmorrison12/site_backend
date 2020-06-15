@@ -1,3 +1,6 @@
+var APIFragmentHandler = require("../apiFragmentHandler.js");
+var APILastUpdatedHandler = require("../apiLastUpdatedHandler.js");
+
 module.exports = class GithubHandler {
   constructor() {}
 

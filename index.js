@@ -136,7 +136,7 @@ app.post("/getFragmentsFromDate", async (req, res) => {
   APIManager.update();
   console.log("Getting fragments from date " + req.body.date);
   result = await APIFragmentHandler.getFragmentsFromDate(req.body.date);
-  console.log(result);
+  // console.log(result);
   res.send(result);
 });
 

@@ -19,6 +19,7 @@ module.exports = class LastFMHandler {
     console.log("Updating lastfm...");
     var res = await APILastUpdatedHandler.getLastUpdated("lastfm");
     var last_accessed = Math.floor(res[0].last_accessed.getTime() / 1000);
+    // last_accessed = Math.floor((Date.now()/1000) - 1209600) // Update last 2 weeks
     var request = await lastfm.request("user.getRecentTracks", {
       user: "jackmorrison12",
       from: last_accessed,
@@ -26,7 +27,25 @@ module.exports = class LastFMHandler {
         success: async function (data) {
           try {
             const totalPages = data.recenttracks["@attr"].totalPages;
-            for (const item of data.recenttracks.track) {
+            console.log(data.recenttracks.track);
+            if (Array.isArray(data.recenttracks.track)) {
+              for (const item of data.recenttracks.track) {
+                var time = null;
+                if (item["@attr"] && item["@attr"].nowplaying) {
+                  time = Date.now().toString();
+                } else {
+                  time = (item.date.uts * 1000).toString();
+                }
+                res = await APIFragmentHandler.insertFragment(
+                  "music",
+                  "lastfm",
+                  item.image[3]["#text"],
+                  "Listened to " + item.name + " by " + item.artist["#text"],
+                  time
+                );
+              }
+            } else if (data.recenttracks.track) {
+              var item = data.recenttracks.track;
               var time = null;
               if (item["@attr"] && item["@attr"].nowplaying) {
                 time = Date.now().toString();
@@ -41,6 +60,7 @@ module.exports = class LastFMHandler {
                 time
               );
             }
+
             if (totalPages > 1) {
               var i = 0;
               for (i = 2; i < totalPages; i++) {

@@ -45,7 +45,7 @@ var port = process.env.PORT || 8080;
 // Send message for default URL
 app.get("/", (req, res) =>
   res.send(
-    "Hello World! Available endpoints are: <br> GET /getAllFragments <br> POST /getnFragments <br> POST /getFragmentsFromDate"
+    "Hello World! Available endpoints are: <br> GET /getAllFragments <br> GET /getSummary <br> POST /getSummaryForDate?date <br> POST /getnFragments?date <br> POST /getFragmentsFromDate?date"
   )
 );
 

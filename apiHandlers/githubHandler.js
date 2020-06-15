@@ -293,18 +293,24 @@ module.exports = class GithubHandler {
           break;
         case "PullRequestReviewCommentEvent":
           var type = "git_pull_request_review_comment";
-          var message = null;
+          var message =
+            "Commented '" +
+            git.payload.comment.body +
+            "' on the pull request '" +
+            item.payload.pull_request.title +
+            "' from the repo " +
+            item.repo.name;
           break;
         case "WatchEvent":
           var type = "git_watch";
-          var message = null;
+          var message = "Starred the repository " + item.repo.name;
           break;
         default:
           other = true;
       }
       // console.log(message);
 
-      if (item.type === "PullRequestEvent") {
+      if (item.type === "PullRequestReviewCommentEvent") {
         console.log(message);
       }
       // if (!other) {

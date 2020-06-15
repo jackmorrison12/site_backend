@@ -21,9 +21,13 @@ module.exports = class LastFMHandler {
     // var last_accessed = Math.floor(res[0].last_accessed.getTime() / 1000);
     // last_accessed = Math.floor((Date.now()/1000) - 1209600) // Update last 2 weeks
     var res = await APIFragmentHandler.getMostRecentFragment("lastfm");
-    var last_accessed = Math.floor(
-      (Date.parse(res[0].occur_date) + 60000) / 1000
-    ); // Checks from one minute after the last song was recorded
+    if (res.length < 1) {
+      var last_accessed = Math.floor(Date.now() / 1000 - 1209600); // Update last 2 weeks
+    } else {
+      var last_accessed = Math.floor(
+        (Date.parse(res[0].occur_date) + 60000) / 1000
+      ); // Checks from one minute after the last song was recorded
+    }
     var request = await lastfm.request("user.getRecentTracks", {
       user: "jackmorrison12",
       from: last_accessed,

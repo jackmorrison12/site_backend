@@ -167,4 +167,6 @@ app.listen(port, async function () {
   // console.log(res[0].occur_date);
   // last_accessed = Math.floor(Date.parse(res[0].occur_date) / 1000);
   // console.log(last_accessed);
+  // res = await APIFragmentHandler.deleteFragmentsFromAPI("github");
+  // console.log(res);
 });

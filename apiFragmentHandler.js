@@ -67,4 +67,8 @@ module.exports = class APIFragmentHandler {
     const res = APIFragment.deleteMany({ occur_date: { $lte: date } });
     return res;
   }
+  static async deleteFragmentsFromAPI(api) {
+    const res = APIFragment.deleteMany({ api: api });
+    return res;
+  }
 };

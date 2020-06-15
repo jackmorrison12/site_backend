@@ -48,7 +48,7 @@ module.exports = class LastFMHandler {
                   "music",
                   "lastfm",
                   item.image[3]["#text"],
-                  "Listened to " + item.name + " by " + item.artist["#text"],
+                  "Listened to '" + item.name + "' by " + item.artist["#text"],
                   time
                 );
               }
@@ -64,7 +64,7 @@ module.exports = class LastFMHandler {
                 "music",
                 "lastfm",
                 item.image[3]["#text"],
-                "Listened to " + item.name + " by " + item.artist["#text"],
+                "Listened to '" + item.name + "' by " + item.artist["#text"],
                 time
               );
             }
@@ -85,9 +85,9 @@ module.exports = class LastFMHandler {
                             "music",
                             "lastfm",
                             inner_item.image[3]["#text"],
-                            "Listened to " +
+                            "Listened to '" +
                               inner_item.name +
-                              " by " +
+                              "' by " +
                               inner_item.artist["#text"],
                             (inner_item.date.uts * 1000).toString()
                           );

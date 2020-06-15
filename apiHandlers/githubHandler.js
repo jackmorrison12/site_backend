@@ -22,14 +22,23 @@ module.exports = class GithubHandler {
     if (res.length < 1) {
       var last_date = new Date(Date.now() - 1209600000); // 2 weeks ago
     } else {
-      var last_date = res[0].occur_date;
+      var last_date = Date.parse(res[0].occur_date) + 1;
+      // var last_date = new Date(Date.now() - 1209600000); // 2 weeks ago
+      // var last_date = new Date(Date.now() - 1156000);
     }
+    // console.log(new Date(last_date));
     const { data } = await octokit.activity.listEventsForAuthenticatedUser({
       username: process.env.GITHUB_USERNAME,
+      per_page: 100,
     });
     // console.log(data);
 
+    // console.log(last_date);
+
     for (const item of data) {
+      if (new Date(Date.parse(item.created_at)) < last_date) {
+        break;
+      }
       var other = false;
       switch (item.type) {
         case "PushEvent":
@@ -309,21 +318,16 @@ module.exports = class GithubHandler {
           other = true;
       }
       // console.log(message);
-
-      if (item.type === "PullRequestReviewCommentEvent") {
-        console.log(message);
-      }
-      // if (!other) {
-      //   console.log(message);
-      // }
-      // console.log(item.payload.commits);
-      // res = await APIFragmentHandler.insertFragment(
-      //   type,
-      //   "github",
-      //   null,
-      //   message
-      //   item.created_at
-      // );
+      res = await APIFragmentHandler.insertFragment(
+        type,
+        "github",
+        null,
+        message,
+        item.created_at
+      );
+      console.log(res);
     }
+    var res = await APILastUpdatedHandler.update("github");
+    console.log(res);
   }
 };

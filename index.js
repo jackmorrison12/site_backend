@@ -10,6 +10,14 @@ let bodyParser = require("body-parser");
 let mongoose = require("mongoose");
 // Initialise the app
 let app = express();
+if (process.env.NODE_ENV === "development") {
+  let allowCrossDomain = function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "*");
+    next();
+  };
+  app.use(allowCrossDomain);
+}
 
 // Import routes
 const APIFragmentHandler = require("./apiFragmentHandler.js");
@@ -45,7 +53,7 @@ var port = process.env.PORT || 8080;
 // Send message for default URL
 app.get("/", (req, res) =>
   res.send(
-    "Hello World! Available endpoints are: <br> GET /getAllFragments <br> GET /getSummary <br> POST /getSummaryForDate?date <br> POST /getnFragments?n <br> POST /getFragmentsFromDate?date"
+    "Hello World! Available endpoints are: <br> GET /getAllFragments <br> GET /getSummary <br> POST /getSummaryForDate?date <br> POST /getAPISummaryForDate?date <br> POST /getnFragments?n <br> POST /getFragmentsFromDate?date"
   )
 );
 
@@ -92,6 +100,24 @@ app.post("/getSummaryForDate", async (req, res) => {
 
   console.log(typeCounts);
   res.send(typeCounts);
+});
+
+app.post("/getAPISummaryForDate", async (req, res) => {
+  APIManager.update();
+  console.log("Getting API summary for date " + req.body.date);
+  result = await APIFragmentHandler.getFragmentsFromDate(req.body.date);
+
+  var apiCounts = result.reduce((p, c) => {
+    var name = c.api;
+    if (!p.hasOwnProperty(name)) {
+      p[name] = 0;
+    }
+    p[name]++;
+    return p;
+  }, {});
+
+  console.log(apiCounts);
+  res.send(apiCounts);
 });
 
 // app.get("/getSummariesAndDates", async (req, res) => {

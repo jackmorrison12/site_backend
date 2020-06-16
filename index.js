@@ -10,14 +10,6 @@ let bodyParser = require("body-parser");
 let mongoose = require("mongoose");
 // Initialise the app
 let app = express();
-if (process.env.NODE_ENV === "development") {
-  let allowCrossDomain = function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "*");
-    next();
-  };
-  app.use(allowCrossDomain);
-}
 
 // Import routes
 const APIFragmentHandler = require("./apiFragmentHandler.js");
@@ -33,6 +25,19 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "https://jackmorrison.xyz");
+  if (process.env.NODE_ENV === "development") {
+    res.header("Access-Control-Allow-Origin", "http://localhost:8000");
+  }
+
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 var uristring = process.env.MONGODB_URI || "mongodb://localhost/site_backend";
 

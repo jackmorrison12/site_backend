@@ -49,7 +49,8 @@ module.exports = class LastFMHandler {
                   "lastfm",
                   item.image[3]["#text"],
                   "Listened to '" + item.name + "' by " + item.artist["#text"],
-                  time
+                  time,
+                  1
                 );
               }
             } else if (data.recenttracks.track) {
@@ -65,7 +66,8 @@ module.exports = class LastFMHandler {
                 "lastfm",
                 item.image[3]["#text"],
                 "Listened to '" + item.name + "' by " + item.artist["#text"],
-                time
+                time,
+                1
               );
             }
 
@@ -89,7 +91,8 @@ module.exports = class LastFMHandler {
                               inner_item.name +
                               "' by " +
                               inner_item.artist["#text"],
-                            (inner_item.date.uts * 1000).toString()
+                            (inner_item.date.uts * 1000).toString(),
+                            1
                           );
                         }
                       } catch (err) {

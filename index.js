@@ -85,7 +85,7 @@ app.get("/getSummary", async (req, res) => {
     if (!p.hasOwnProperty(name)) {
       p[name] = 0;
     }
-    p[name]++;
+    p[name] = p[name] + c.count;
     return p;
   }, {});
 
@@ -104,7 +104,7 @@ app.post("/getSummaryForDate", async (req, res) => {
     if (!p.hasOwnProperty(name)) {
       p[name] = 0;
     }
-    p[name]++;
+    p[name] = p[name] + c.count;
     return p;
   }, {});
 
@@ -122,7 +122,7 @@ app.post("/getAPISummaryForDate", async (req, res) => {
     if (!p.hasOwnProperty(name)) {
       p[name] = 0;
     }
-    p[name]++;
+    p[name] = p[name] + c.count;
     return p;
   }, {});
 
@@ -130,35 +130,12 @@ app.post("/getAPISummaryForDate", async (req, res) => {
   res.send(apiCounts);
 });
 
-// app.get("/getSummariesAndDates", async (req, res) => {
-// APIManager.update();
-//   console.log("Getting summary for all dates");
-//   result = await APIFragmentHandler.getnRecentFragments();
-
-//   const dateGroups = result.reduce((acc, item) => {
-//     if (!acc[item.occur_date.setHours(0, 0, 0, 0)]) {
-//       acc[item.occur_date.setHours(0, 0, 0, 0)] = [];
-//     }
-
-//     acc[item.occur_date.setHours(0, 0, 0, 0)].push(item);
-//     return acc;
-//   }, {});
-
-//     console.log(dateGroups);
-
-//   var typeCounts = result.reduce((p, c) => {
-//     var name = c.type;
-//     if (!p.hasOwnProperty(name)) {
-//       p[name] = 0;
-//     }
-//     p[name]++;
-//     return p;
-//   }, {});
-
-//   console.log(typeCounts);
-
-//   res.send(typeCounts);
-// });
+app.get("/getSummariesByDate", async (req, res) => {
+  await APIManager.update();
+  console.log("Getting summaries for all dates");
+  result = await APIFragmentHandler.getSummaryGroupedByDate();
+  res.send(result);
+});
 
 app.post("/getnFragments", async (req, res) => {
   await APIManager.update();
@@ -200,4 +177,6 @@ app.listen(port, async function () {
   // console.log(last_accessed);
   // res = await APIFragmentHandler.deleteFragmentsFromAPI("github");
   // console.log(res);
+  // result = await APIFragmentHandler.getSummaryGroupedByDate();
+  // console.log(result);
 });

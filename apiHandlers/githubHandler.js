@@ -31,6 +31,7 @@ module.exports = class GithubHandler {
       username: process.env.GITHUB_USERNAME,
       per_page: 100,
     });
+    var count = 1;
     // console.log(data);
 
     // console.log(last_date);
@@ -54,6 +55,7 @@ module.exports = class GithubHandler {
                 ", with message '" +
                 item.payload.commits[0].message +
                 "'";
+          count = item.payload.size;
           break;
         case "CommitCommentEvent":
           var type = "git_commit_comment";
@@ -323,7 +325,8 @@ module.exports = class GithubHandler {
         "github",
         null,
         message,
-        item.created_at
+        item.created_at,
+        count
       );
       console.log(res);
     }

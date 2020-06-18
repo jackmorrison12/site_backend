@@ -52,13 +52,91 @@ module.exports = class APIFragmentHandler {
     });
     return res;
   }
-  static async insertFragment(type, api, image, body, occur_date) {
+
+  static async getSummaryGroupedByDate() {
+    var date = new Date(Date.now()).setHours(0, 0, 0, 0);
+    var upperDate = new Date(date + 86400000);
+    date = new Date(date);
+    var result = await APIFragmentHandler.getnRecentFragments();
+    // console.log(result);
+    var data = [];
+    var i = 0;
+    for (var i = 0; i < 14; i++) {
+      data[i] = {};
+    }
+    i = 0;
+    var count = 0;
+    for (const item of result) {
+      if (date <= item.occur_date && item.occur_date < upperDate) {
+        data[i][item.type]
+          ? (data[i][item.type] += item.count)
+          : (data[i][item.type] = item.count);
+        count++;
+      } else {
+        while (date > item.occur_date || item.occur_date >= upperDate) {
+          upperDate = new Date(upperDate - 86400000);
+          date = new Date(date - 86400000);
+          i++;
+        }
+        if (i >= 14) {
+          break;
+        }
+        data[i][item.type]
+          ? (data[i][item.type] += item.count)
+          : (data[i][item.type] = item.count);
+        count++;
+      }
+    }
+
+    return data;
+  }
+
+  static async getAPISummaryGroupedByDate() {
+    var date = new Date(Date.now()).setHours(0, 0, 0, 0);
+    var upperDate = new Date(date + 86400000);
+    date = new Date(date);
+    var result = await APIFragmentHandler.getnRecentFragments();
+    // console.log(result);
+    var data = [];
+    var i = 0;
+    for (var i = 0; i < 14; i++) {
+      data[i] = {};
+    }
+    i = 0;
+    var count = 0;
+    for (const item of result) {
+      if (date <= item.occur_date && item.occur_date < upperDate) {
+        data[i][item.api]
+          ? (data[i][item.api] += item.count)
+          : (data[i][item.api] = item.count);
+        count++;
+      } else {
+        while (date > item.occur_date || item.occur_date >= upperDate) {
+          upperDate = new Date(upperDate - 86400000);
+          date = new Date(date - 86400000);
+          i++;
+        }
+        if (i >= 14) {
+          break;
+        }
+        data[i][item.api]
+          ? (data[i][item.api] += item.count)
+          : (data[i][item.api] = item.count);
+        count++;
+      }
+    }
+
+    return data;
+  }
+
+  static async insertFragment(type, api, image, body, occur_date, count) {
     var fragment = new APIFragment({
       type: type,
       api: api,
       image: image,
       body: body,
       occur_date: occur_date,
+      count: count,
     });
     const res = fragment.save();
     return res;

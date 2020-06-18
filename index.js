@@ -133,7 +133,7 @@ app.post("/getAPISummaryForDate", async (req, res) => {
 app.get("/getSummariesByDate", async (req, res) => {
   await APIManager.update();
   console.log("Getting summaries for all dates");
-  result = await APIFragmentHandler.getSummaryGroupedByDate();
+  result = await APIFragmentHandler.getAPISummaryGroupedByDate();
   res.send(result);
 });
 

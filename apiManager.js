@@ -21,11 +21,23 @@ module.exports = class APIManager {
 
     const res = await ApiLastUpdatedHandler.getAllLastUpdated();
 
-    res.forEach((item) => {
+    for (const item of res) {
       if (Date.now() - apis[item.api].update_frequency > item.last_accessed) {
         console.log("Updating " + item.api);
-        apis[item.api].handler.update(item.last_accessed);
+        await apis[item.api].handler.update(item.last_accessed);
       }
-    });
+    }
+  }
+
+  static async forceUpdate() {
+    const apis = [
+      { api: "lastfm", handler: LastFMHandler },
+      { api: "github", handler: GithubHandler },
+    ];
+
+    for (const item of apis) {
+      console.log("Updating " + item.api);
+      await item.handler.update();
+    }
   }
 };

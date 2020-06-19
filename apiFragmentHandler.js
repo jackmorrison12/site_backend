@@ -54,11 +54,15 @@ module.exports = class APIFragmentHandler {
   }
 
   static async getSummaryGroupedByDate() {
-    var date = new Date(Date.now()).setHours(0, 0, 0, 0);
+    var d = new Date().toLocaleString("en-GB", { timeZone: "Europe/London" });
+    var date = new Date(d).setUTCHours(0, 0, 0, 0);
+    if (isBST(d)) {
+      d = Date.parse(d) - 86400000;
+      date = new Date(d).setUTCHours(23, 0, 0, 0);
+    }
     var upperDate = new Date(date + 86400000);
     date = new Date(date);
     var result = await APIFragmentHandler.getnRecentFragments();
-    // console.log(result);
     var data = [];
     var i = 0;
     for (var i = 0; i < 14; i++) {
@@ -98,12 +102,8 @@ module.exports = class APIFragmentHandler {
       d = Date.parse(d) - 86400000;
       date = new Date(d).setUTCHours(23, 0, 0, 0);
     }
-
-    // var date = new Date(Date.now()).setHours(0, 0, 0, 0);
     var upperDate = new Date(date + 86400000);
-    console.log(upperDate);
     date = new Date(date);
-    console.log(date);
     var result = await APIFragmentHandler.getnRecentFragments();
     // console.log(result);
     var data = [];

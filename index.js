@@ -153,6 +153,18 @@ app.post("/getFragmentsFromDate", async (req, res) => {
   res.send(result);
 });
 
+app.post("/getAPIFragmentsFromDate", async (req, res) => {
+  await APIManager.update();
+  console.log(
+    "Getting " + req.body.api + " fragments from date " + req.body.date
+  );
+  result = await APIFragmentHandler.getAPIFragmentsFromDate(
+    req.body.api,
+    req.body.date
+  );
+  res.send(result);
+});
+
 // Launch app to listen to specified port
 app.listen(port, async function () {
   console.log("Running personal site API on port " + port);

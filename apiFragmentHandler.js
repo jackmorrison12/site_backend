@@ -53,6 +53,35 @@ module.exports = class APIFragmentHandler {
     return res;
   }
 
+  static async getAPIFragmentsFromDate(api, dateNum) {
+    dateNum = 13 - dateNum;
+    var d = new Date().toLocaleString("en-GB", { timeZone: "Europe/London" });
+    d = Date.parse(d) - 86400000 * dateNum;
+    var date = new Date(d).setUTCHours(0, 0, 0, 0);
+    if (isBST(d)) {
+      d = Date.parse(d) - 86400000;
+      date = new Date(d).setUTCHours(23, 0, 0, 0);
+    }
+    var upperDate = new Date(date + 86400000);
+    date = new Date(date);
+
+    console.log(upperDate);
+    console.log(date);
+
+    var upperDate = new Date(Date.parse(date) + 86400000);
+    if (isBST(date)) {
+      date = new Date(Date.parse(date) - 3600000);
+      upperDate = new Date(Date.parse(date) + 86400000);
+    }
+    const res = APIFragment.find({
+      occur_date: { $gte: date, $lt: upperDate },
+      api: api,
+    }).sort({
+      occur_date: "descending",
+    });
+    return res;
+  }
+
   static async getSummaryGroupedByDate() {
     var d = new Date().toLocaleString("en-GB", { timeZone: "Europe/London" });
     var date = new Date(d).setUTCHours(0, 0, 0, 0);

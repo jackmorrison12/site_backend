@@ -63,7 +63,7 @@ app.get("/", (req, res) =>
 );
 
 app.get("/getAllFragments", async (req, res) => {
-  await APIManager.update();
+  // await APIManager.update();
   console.log("Getting All Fragments");
   result = await APIFragmentHandler.getnRecentFragments();
   console.log(result);
@@ -76,7 +76,7 @@ app.get("/forceUpdate", async (req, res) => {
 });
 
 app.get("/getSummary", async (req, res) => {
-  await APIManager.update();
+  // await APIManager.update();
   console.log("Getting Summary");
   result = await APIFragmentHandler.getnRecentFragments();
 
@@ -95,7 +95,7 @@ app.get("/getSummary", async (req, res) => {
 });
 
 app.post("/getSummaryForDate", async (req, res) => {
-  await APIManager.update();
+  // await APIManager.update();
   console.log("Getting summary for date " + req.body.date);
   result = await APIFragmentHandler.getFragmentsFromDate(req.body.date);
 
@@ -113,7 +113,7 @@ app.post("/getSummaryForDate", async (req, res) => {
 });
 
 app.post("/getAPISummaryForDate", async (req, res) => {
-  await APIManager.update();
+  // await APIManager.update();
   console.log("Getting API summary for date " + req.body.date);
   result = await APIFragmentHandler.getFragmentsFromDate(req.body.date);
 
@@ -138,7 +138,7 @@ app.get("/getSummariesByDate", async (req, res) => {
 });
 
 app.post("/getnFragments", async (req, res) => {
-  await APIManager.update();
+  // await APIManager.update();
   console.log("Getting " + req.body.n + " Fragments");
   result = await APIFragmentHandler.getnRecentFragments(req.body.n);
   console.log(result);
@@ -146,7 +146,7 @@ app.post("/getnFragments", async (req, res) => {
 });
 
 app.post("/getFragmentsFromDate", async (req, res) => {
-  await APIManager.update();
+  // await APIManager.update();
   console.log("Getting fragments from date " + req.body.date);
   result = await APIFragmentHandler.getFragmentsFromDate(req.body.date);
   // console.log(result);
@@ -154,7 +154,7 @@ app.post("/getFragmentsFromDate", async (req, res) => {
 });
 
 app.post("/getAPIFragmentsFromDate", async (req, res) => {
-  await APIManager.update();
+  // await APIManager.update();
   console.log(
     "Getting " + req.body.api + " fragments from date " + req.body.date
   );

@@ -92,8 +92,15 @@ module.exports = class APIFragmentHandler {
   }
 
   static async getAPISummaryGroupedByDate() {
-    console.log(new Date(Date.now()));
-    var date = new Date(Date.now()).setHours(0, 0, 0, 0);
+    var d = new Date().toLocaleString("en-GB", { timeZone: "Europe/London" });
+
+    if (isBST(d)) {
+      d = Date.parse(d);
+      d += 3600000;
+    }
+    var date = new Date(d).setHours(0, 0, 0, 0);
+
+    // var date = new Date(Date.now()).setHours(0, 0, 0, 0);
     var upperDate = new Date(date + 86400000);
     console.log(upperDate);
     date = new Date(date);

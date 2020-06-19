@@ -189,7 +189,7 @@ module.exports = class APIFragmentHandler {
   }
 
   static async removeDuplicates() {
-    const res = await APIFragment.find();
+    const res = await APIFragment.find().sort({ occur_date: "descending" });
     for (const doc of res) {
       var res2 = await APIFragment.deleteOne({
         _id: { $gt: doc._id },

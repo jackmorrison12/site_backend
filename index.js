@@ -189,6 +189,6 @@ app.listen(port, async function () {
   // console.log(last_accessed);
   // res = await APIFragmentHandler.deleteFragmentsFromAPI("github");
   // console.log(res);
-  // result = await APIFragmentHandler.getSummaryGroupedByDate();
+  // result = await APIFragmentHandler.removeDuplicates();
   // console.log(result);
 });

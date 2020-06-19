@@ -187,4 +187,21 @@ module.exports = class APIFragmentHandler {
     const res = APIFragment.deleteMany({ api: api });
     return res;
   }
+
+  static async removeDuplicates() {
+    const res = await APIFragment.find();
+    for (const doc of res) {
+      var res2 = await APIFragment.deleteOne({
+        _id: { $gt: doc._id },
+        occur_date: {
+          $gt: new Date(Date.parse(doc.occur_date) - 6000),
+          $lt: new Date(Date.parse(doc.occur_date) + 6000),
+        },
+        body: doc.body,
+      });
+      if (res2.n > 0) {
+        console.log(res2);
+      }
+    }
+  }
 };

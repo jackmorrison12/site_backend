@@ -31,12 +31,12 @@ module.exports = class GithubHandler {
       username: process.env.GITHUB_USERNAME,
       per_page: 100,
     });
-    var count = 1;
     // console.log(data);
 
     // console.log(last_date);
 
     for (const item of data) {
+      var count = 1;
       if (new Date(Date.parse(item.created_at)) < last_date) {
         break;
       }

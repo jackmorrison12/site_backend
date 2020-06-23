@@ -127,8 +127,13 @@ module.exports = class APIFragmentHandler {
   static async getAPISummaryGroupedByDate() {
     var d = new Date().toLocaleString("en-GB", { timeZone: "Europe/London" });
     var date = new Date(d).setUTCHours(0, 0, 0, 0);
+    // console.log(d);
     if (isBST(d)) {
-      d = Date.parse(d) - 86400000;
+      if (new Date(d).getHours() === 0) {
+        d = Date.parse(d) - 82800000;
+      } else {
+        d = Date.parse(d) - 86400000;
+      }
       date = new Date(d).setUTCHours(23, 0, 0, 0);
     }
     var upperDate = new Date(date + 86400000);
@@ -142,6 +147,8 @@ module.exports = class APIFragmentHandler {
     }
     i = 0;
     var count = 0;
+    console.log(date);
+    console.log(upperDate);
     for (const item of result) {
       if (date <= item.occur_date && item.occur_date < upperDate) {
         data[i][item.api]

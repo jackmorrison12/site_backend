@@ -59,14 +59,15 @@ module.exports = class APIFragmentHandler {
     d = Date.parse(d) - 86400000 * dateNum;
     var date = new Date(d).setUTCHours(0, 0, 0, 0);
     if (isBST(d)) {
-      d = Date.parse(d) - 86400000;
+      if (new Date(d).getHours() === 0) {
+        d = Date.parse(d) - 82800000;
+      } else {
+        d = Date.parse(d) - 86400000;
+      }
       date = new Date(d).setUTCHours(23, 0, 0, 0);
     }
     var upperDate = new Date(date + 86400000);
     date = new Date(date);
-
-    console.log(upperDate);
-    console.log(date);
 
     var upperDate = new Date(Date.parse(date) + 86400000);
     if (isBST(date)) {
@@ -86,7 +87,11 @@ module.exports = class APIFragmentHandler {
     var d = new Date().toLocaleString("en-GB", { timeZone: "Europe/London" });
     var date = new Date(d).setUTCHours(0, 0, 0, 0);
     if (isBST(d)) {
-      d = Date.parse(d) - 86400000;
+      if (new Date(d).getHours() === 0) {
+        d = Date.parse(d) - 82800000;
+      } else {
+        d = Date.parse(d) - 86400000;
+      }
       date = new Date(d).setUTCHours(23, 0, 0, 0);
     }
     var upperDate = new Date(date + 86400000);
@@ -127,7 +132,6 @@ module.exports = class APIFragmentHandler {
   static async getAPISummaryGroupedByDate() {
     var d = new Date().toLocaleString("en-GB", { timeZone: "Europe/London" });
     var date = new Date(d).setUTCHours(0, 0, 0, 0);
-    // console.log(d);
     if (isBST(d)) {
       if (new Date(d).getHours() === 0) {
         d = Date.parse(d) - 82800000;

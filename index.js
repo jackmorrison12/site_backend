@@ -106,7 +106,7 @@ app.get("/getRecents", async (req, res) => {
     ["instagram", 1209600000], // Fortnightly
     ["linkedin", 1209600000],
   ];
-  var results = [];
+  var results = {};
 
   for (const item of apis) {
     result = await APIFragmentHandler.getMostRecentFragment(item[0]);
@@ -114,11 +114,8 @@ app.get("/getRecents", async (req, res) => {
     var active = result[0]
       ? Date.now() - item[1] < result[0].occur_date
       : false;
-    console.log(active);
-    results.push({ [item[0]]: active });
+    results[item[0]] = active;
   }
-  console.log(results);
-
   res.send(results);
 });
 

@@ -96,7 +96,7 @@ app.get("/getSummary", async (req, res) => {
 });
 
 app.get("/getRecents", async (req, res) => {
-  // await APIManager.update();
+  await APIManager.update();
   console.log("Getting Recents");
 
   const apis = [
@@ -110,8 +110,6 @@ app.get("/getRecents", async (req, res) => {
 
   for (const item of apis) {
     result = await APIFragmentHandler.getMostRecentFragment(item[0]);
-    // console.log(result);
-    // console.log(result.length);
 
     var active = result[0]
       ? Date.now() - item[1] < result[0].occur_date

@@ -95,6 +95,35 @@ app.get("/getSummary", async (req, res) => {
   res.send(typeCounts);
 });
 
+app.get("/getRecents", async (req, res) => {
+  // await APIManager.update();
+  console.log("Getting Recents");
+
+  const apis = [
+    ["lastfm", 86400000], // Daily
+    ["github", 604800000], // Weekly
+    ["twitter", 86400000],
+    ["instagram", 1209600000], // Fortnightly
+    ["linkedin", 1209600000],
+  ];
+  var results = [];
+
+  for (const item of apis) {
+    result = await APIFragmentHandler.getMostRecentFragment(item[0]);
+    // console.log(result);
+    // console.log(result.length);
+
+    var active = result[0]
+      ? Date.now() - item[1] < result[0].occur_date
+      : false;
+    console.log(active);
+    results.push({ [item[0]]: active });
+  }
+  console.log(results);
+
+  res.send(results);
+});
+
 app.post("/getSummaryForDate", async (req, res) => {
   // await APIManager.update();
   console.log("Getting summary for date " + req.body.date);

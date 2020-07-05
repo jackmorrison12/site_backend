@@ -196,7 +196,7 @@ app.listen(port, async function () {
 
   // APIManager.update();
   // res = await APILastUpdatedHandler.getAllLastUpdated();
-  // res = await APILastUpdatedHandler.update("lastfm");
+  // res = await APILastUpdatedHandler.update("twitter");
 
   // console.log(res);
   // res = await APIFragmentHandler.insertFragment(

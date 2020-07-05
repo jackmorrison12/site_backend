@@ -1,5 +1,6 @@
 var LastFMHandler = require("./apiHandlers/lastfmHandler.js");
 var GithubHandler = require("./apiHandlers/githubHandler.js");
+var TwitterHandler = require("./apiHandlers/twitterHandler.js");
 var ApiLastUpdatedHandler = require("./apiLastUpdatedHandler.js");
 
 module.exports = class APIManager {
@@ -17,10 +18,10 @@ module.exports = class APIManager {
     const apis = {
       lastfm: { update_frequency: 180000, handler: LastFMHandler },
       github: { update_frequency: 1800000, handler: GithubHandler },
+      twitter: { update_frequency: 1800000, handler: TwitterHandler },
     };
 
     const res = await ApiLastUpdatedHandler.getAllLastUpdated();
-
     for (const item of res) {
       if (Date.now() - apis[item.api].update_frequency > item.last_accessed) {
         console.log("Updating " + item.api);
@@ -33,6 +34,7 @@ module.exports = class APIManager {
     const apis = [
       { api: "lastfm", handler: LastFMHandler },
       { api: "github", handler: GithubHandler },
+      { api: "twitter", handler: TwitterHandler },
     ];
 
     for (const item of apis) {

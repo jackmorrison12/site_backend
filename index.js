@@ -1,6 +1,8 @@
 // import { APIFragmentHandler } from "./apiFragmentHandler"
 var ApiFragmentHandler = require("./apiFragmentHandler.js");
 var ApiLastUpdatedHandler = require("./apiLastUpdatedHandler.js");
+var TwitterHandler = require("./apiHandlers/twitterHandler.js");
+
 var APIManager = require("./apiManager.js");
 // Import express
 let express = require("express");
@@ -194,17 +196,19 @@ app.post("/getAPIFragmentsFromDate", async (req, res) => {
 app.listen(port, async function () {
   console.log("Running personal site API on port " + port);
 
-  // APIManager.update();
+  APIManager.update();
   // res = await APILastUpdatedHandler.getAllLastUpdated();
   // res = await APILastUpdatedHandler.update("twitter");
 
   // console.log(res);
   // res = await APIFragmentHandler.insertFragment(
-  //   "listen",
-  //   "lastfm",
+  //   "test",
+  //   "testapi",
   //   "imgurl",
   //   "body",
-  //   "1592142682000"
+  //   "1592142682000",
+  // 1,
+  // {title: "testtitle"}
   // );
   // console.log(res);
 
@@ -216,4 +220,5 @@ app.listen(port, async function () {
   // console.log(res);
   // result = await APIFragmentHandler.removeDuplicates();
   // console.log(result);
+  // TwitterHandler.update();
 });

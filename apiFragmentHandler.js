@@ -178,7 +178,7 @@ module.exports = class APIFragmentHandler {
     return data;
   }
 
-  static async insertFragment(type, api, image, body, occur_date, count) {
+  static async insertFragment(type, api, image, body, occur_date, count, meta) {
     var fragment = new APIFragment({
       type: type,
       api: api,
@@ -186,6 +186,7 @@ module.exports = class APIFragmentHandler {
       body: body,
       occur_date: occur_date,
       count: count,
+      meta: meta,
     });
     const res = fragment.save();
     return res;

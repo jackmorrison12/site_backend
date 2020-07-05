@@ -326,7 +326,8 @@ module.exports = class GithubHandler {
         null,
         message,
         item.created_at,
-        count
+        count,
+        {}
       );
       console.log(res);
     }

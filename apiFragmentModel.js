@@ -30,6 +30,7 @@ var apiFragmentSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  meta: {},
 });
 var APIFragment = (module.exports = mongoose.model(
   "APIFragment",

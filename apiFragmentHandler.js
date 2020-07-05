@@ -58,22 +58,17 @@ module.exports = class APIFragmentHandler {
     var d = new Date().toLocaleString("en-GB", { timeZone: "Europe/London" });
     d = Date.parse(d) - 86400000 * dateNum;
     var date = new Date(d).setUTCHours(0, 0, 0, 0);
-    if (isBST(d)) {
+    if (isBST(new Date(d))) {
       if (new Date(d).getHours() === 0) {
-        d = Date.parse(d) - 82800000;
+        d = d - 82800000;
       } else {
-        d = Date.parse(d) - 86400000;
+        d = d - 86400000;
       }
       date = new Date(d).setUTCHours(23, 0, 0, 0);
     }
     var upperDate = new Date(date + 86400000);
     date = new Date(date);
-
     var upperDate = new Date(Date.parse(date) + 86400000);
-    if (isBST(date)) {
-      date = new Date(Date.parse(date) - 3600000);
-      upperDate = new Date(Date.parse(date) + 86400000);
-    }
     const res = APIFragment.find({
       occur_date: { $gte: date, $lt: upperDate },
       api: api,

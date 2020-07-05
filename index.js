@@ -2,6 +2,7 @@
 var ApiFragmentHandler = require("./apiFragmentHandler.js");
 var ApiLastUpdatedHandler = require("./apiLastUpdatedHandler.js");
 var TwitterHandler = require("./apiHandlers/twitterHandler.js");
+var GithubHandler = require("./apiHandlers/githubHandler.js");
 
 var APIManager = require("./apiManager.js");
 // Import express
@@ -221,4 +222,5 @@ app.listen(port, async function () {
   // result = await APIFragmentHandler.removeDuplicates();
   // console.log(result);
   // TwitterHandler.update();
+  // GithubHandler.update();
 });

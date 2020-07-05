@@ -37,6 +37,7 @@ module.exports = class GithubHandler {
 
     for (const item of data) {
       var count = 1;
+      var meta = {};
       if (new Date(Date.parse(item.created_at)) < last_date) {
         break;
       }
@@ -56,6 +57,10 @@ module.exports = class GithubHandler {
                 item.payload.commits[0].message +
                 "'";
           count = item.payload.size;
+          if (item.payload.size == 1) {
+            meta.message = item.payload.commits[0].message;
+          }
+          meta.repo = item.repo.name;
           break;
         case "CommitCommentEvent":
           var type = "git_commit_comment";
@@ -64,6 +69,8 @@ module.exports = class GithubHandler {
             item.payload.comment.body +
             "' on a commit from the repo " +
             item.repo.name;
+          meta.comment = item.payload.comment.body;
+          meta.repo = item.repo.name;
           break;
         case "CreateEvent":
           var type =
@@ -84,6 +91,10 @@ module.exports = class GithubHandler {
                 item.payload.ref +
                 " in repo " +
                 item.repo.name;
+          meta.repo = item.repo.name;
+          if (item.payload.ref_type !== "repository") {
+            meta.name = item.payload.ref;
+          }
           break;
         case "DeleteEvent":
           var type =
@@ -108,6 +119,7 @@ module.exports = class GithubHandler {
         case "ForkEvent":
           var type = "git_fork";
           var message = "Forked the repo " + item.repo.name;
+          meta.repo = item.repo.name;
           break;
         case "IssueCommentEvent":
           var type =
@@ -315,6 +327,7 @@ module.exports = class GithubHandler {
         case "WatchEvent":
           var type = "git_watch";
           var message = "Starred the repository " + item.repo.name;
+          meta.repo = item.repo.name;
           break;
         default:
           other = true;
@@ -327,7 +340,7 @@ module.exports = class GithubHandler {
         message,
         item.created_at,
         count,
-        {}
+        meta
       );
       console.log(res);
     }

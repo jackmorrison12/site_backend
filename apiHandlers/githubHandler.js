@@ -59,6 +59,7 @@ module.exports = class GithubHandler {
           count = item.payload.size;
           if (item.payload.size == 1) {
             meta.message = item.payload.commits[0].message;
+            meta.commit_url = item.payload.commits[0].url;
           }
           meta.repo = item.repo.name;
           break;

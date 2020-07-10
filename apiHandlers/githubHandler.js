@@ -18,6 +18,8 @@ module.exports = class GithubHandler {
 
   static async update() {
     console.log("Updating github...");
+    var res = await APILastUpdatedHandler.update("github");
+    console.log(res);
     var res = await APIFragmentHandler.getMostRecentFragment("github");
     if (res.length < 1) {
       var last_date = new Date(Date.now() - 1209600000); // 2 weeks ago

@@ -20,6 +20,8 @@ module.exports = class LastFMHandler {
     // var res = await APILastUpdatedHandler.getLastUpdated("lastfm"); // Check from last check
     // var last_accessed = Math.floor(res[0].last_accessed.getTime() / 1000);
     // last_accessed = Math.floor((Date.now()/1000) - 1209600) // Update last 2 weeks
+    var res = await APILastUpdatedHandler.update("lastfm");
+    console.log(res);
     var res = await APIFragmentHandler.getMostRecentFragment("lastfm");
     if (res.length < 1) {
       var last_accessed = Math.floor(Date.now() / 1000 - 1209600); // Update last 2 weeks

@@ -22,6 +22,8 @@ module.exports = class TwitterHandler {
 
   static async update() {
     console.log("Updating twitter...");
+    var res = await APILastUpdatedHandler.update("twitter");
+    console.log(res);
     var res = await APIFragmentHandler.getMostRecentFragment("twitter");
     if (res.length < 1) {
       var last_id = "1014158067154513920"; // 2 weeks ago

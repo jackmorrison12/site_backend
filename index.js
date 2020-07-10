@@ -43,7 +43,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-var uristring = process.env.MONGODB_URI || "mongodb://localhost/site_backend";
+var uristring = process.env.DB_URI || "mongodb://localhost/site_backend";
 
 // Connect to Mongoose and set connection variable
 mongoose.connect(uristring, {
@@ -197,7 +197,7 @@ app.post("/getAPIFragmentsFromDate", async (req, res) => {
 app.listen(port, async function () {
   console.log("Running personal site API on port " + port);
 
-  APIManager.update();
+  // APIManager.update();
   // res = await APILastUpdatedHandler.getAllLastUpdated();
   // res = await APILastUpdatedHandler.update("twitter");
 
@@ -213,6 +213,9 @@ app.listen(port, async function () {
   // );
   // console.log(res);
 
+  res = await APIFragmentHandler.getnRecentFragments(1);
+  console.log(res);
+
   // res = await APIFragmentHandler.getMostRecentFragment("lastfm");
   // console.log(res[0].occur_date);
   // last_accessed = Math.floor(Date.parse(res[0].occur_date) / 1000);
@@ -223,5 +226,4 @@ app.listen(port, async function () {
   // console.log(result);
   // TwitterHandler.update();
   // GithubHandler.update();
-  
 });

@@ -27,7 +27,7 @@ module.exports = class LastFMHandler {
       var last_accessed = Math.floor(Date.now() / 1000 - 1209600); // Update last 2 weeks
     } else {
       var last_accessed = Math.floor(
-        (Date.parse(res[0].occur_date) + 60000) / 1000
+        (Date.parse(res[0].occur_date) + 1000) / 1000
       ); // Checks from one minute after the last song was recorded
     }
     var request = await lastfm.request("user.getRecentTracks", {

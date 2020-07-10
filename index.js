@@ -197,7 +197,7 @@ app.post("/getAPIFragmentsFromDate", async (req, res) => {
 app.listen(port, async function () {
   console.log("Running personal site API on port " + port);
 
-  // APIManager.update();
+  APIManager.update();
   // res = await APILastUpdatedHandler.getAllLastUpdated();
   // res = await APILastUpdatedHandler.update("twitter");
 
@@ -213,8 +213,8 @@ app.listen(port, async function () {
   // );
   // console.log(res);
 
-  res = await APIFragmentHandler.getnRecentFragments(1);
-  console.log(res);
+  // res = await APIFragmentHandler.getnRecentFragments(1);
+  // console.log(res);
 
   // res = await APIFragmentHandler.getMostRecentFragment("lastfm");
   // console.log(res[0].occur_date);

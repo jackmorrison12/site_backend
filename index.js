@@ -105,7 +105,7 @@ app.get("/getRecents", async (req, res) => {
   const apis = [
     ["lastfm", 86400000], // Daily
     ["github", 604800000], // Weekly
-    ["twitter", 86400000],
+    ["twitter", 604800000],
     ["instagram", 1209600000], // Fortnightly
     ["linkedin", 1209600000],
   ];

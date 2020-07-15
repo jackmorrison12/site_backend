@@ -20,7 +20,7 @@ var client = new Twitter({
 module.exports = class TwitterHandler {
   constructor() {}
 
-  static async update() {
+  static async update(last_accessed) {
     console.log("Updating twitter...");
     var res = await APILastUpdatedHandler.update("twitter");
     console.log(res);

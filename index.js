@@ -198,6 +198,7 @@ app.listen(port, async function () {
   console.log("Running personal site API on port " + port);
 
   APIManager.update();
+
   // res = await APILastUpdatedHandler.getAllLastUpdated();
   // res = await APILastUpdatedHandler.update("twitter");
 

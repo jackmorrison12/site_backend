@@ -15,7 +15,7 @@ var lastfm = new LastFmNode({
 module.exports = class LastFMHandler {
   constructor() {}
 
-  static async update(last_accessed) {
+  static async update() {
     console.log("Updating lastfm...");
     // var res = await APILastUpdatedHandler.getLastUpdated("lastfm"); // Check from last check
     // var last_accessed = Math.floor(res[0].last_accessed.getTime() / 1000);

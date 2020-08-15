@@ -20,7 +20,7 @@ var client = new Twitter({
 module.exports = class TwitterHandler {
   constructor() {}
 
-  static async update(last_accessed) {
+  static async update() {
     console.log("Updating twitter...");
     var res = await APILastUpdatedHandler.update("twitter");
     console.log(res);
@@ -30,13 +30,17 @@ module.exports = class TwitterHandler {
     } else {
       var last_id = res[0].meta.id;
     }
+    console.log(last_id);
 
     client.get("statuses/user_timeline", { since_id: last_id }, async function (
       error,
       tweets,
       response
     ) {
-      if (error) throw error;
+      if (error) {
+        console.log(error);
+        throw error;
+      }
 
       for (const tweet of tweets) {
         var type = "";

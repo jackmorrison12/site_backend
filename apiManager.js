@@ -25,7 +25,7 @@ module.exports = class APIManager {
     for (const item of res) {
       if (Date.now() - apis[item.api].update_frequency > item.last_accessed) {
         console.log("Updating " + item.api);
-        await apis[item.api].handler.update(item.last_accessed);
+        await apis[item.api].handler.update();
       }
     }
   }

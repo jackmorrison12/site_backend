@@ -138,7 +138,6 @@ module.exports = class APIFragmentHandler {
     var upperDate = new Date(date + 86400000);
     date = new Date(date);
     var result = await APIFragmentHandler.getnRecentFragments();
-    // console.log(result);
     var data = [];
     var i = 0;
     for (var i = 0; i < 14; i++) {

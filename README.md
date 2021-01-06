@@ -28,6 +28,10 @@ Sure! This website is completely open source. The only thing I ask is that you l
     npm run develop
     ```
 
+1.  **Fill in the `.env.development.example` file, renaming it to `.env.development`**
+
+    This file contains any environment variables which will be specific to your own APIs
+
 1.  **Open the source code and start editing!**
 
     If you're running my site locally, then the API calls from the local Gatsby site will hit this instead of the server, so any changes can be seen in real time!

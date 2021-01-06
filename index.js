@@ -1,9 +1,4 @@
-// import { APIFragmentHandler } from "./apiFragmentHandler"
 var ApiFragmentHandler = require("./apiFragmentHandler.js");
-var ApiLastUpdatedHandler = require("./apiLastUpdatedHandler.js");
-var TwitterHandler = require("./apiHandlers/twitterHandler.js");
-var GithubHandler = require("./apiHandlers/githubHandler.js");
-
 var APIManager = require("./apiManager.js");
 // Import express
 let express = require("express");
@@ -13,10 +8,6 @@ let bodyParser = require("body-parser");
 let mongoose = require("mongoose");
 // Initialise the app
 let app = express();
-
-// Import routes
-const APIFragmentHandler = require("./apiFragmentHandler.js");
-const APILastUpdatedHandler = require("./apiLastUpdatedHandler.js");
 
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
@@ -30,7 +21,6 @@ app.use(
 app.use(bodyParser.json());
 
 app.use(function (req, res, next) {
-  // res.header("Access-Control-Allow-Origin", "https://jackmorrison.netlify.app");
   res.header("Access-Control-Allow-Origin", "https://jackmorrison.xyz");
   if (process.env.NODE_ENV === "development") {
     res.header("Access-Control-Allow-Origin", "http://localhost:8000");
@@ -67,7 +57,6 @@ app.get("/", (req, res) =>
 );
 
 app.get("/getAllFragments", async (req, res) => {
-  // await APIManager.update();
   console.log("Getting All Fragments");
   result = await APIFragmentHandler.getnRecentFragments();
   console.log(result);
@@ -80,7 +69,6 @@ app.get("/forceUpdate", async (req, res) => {
 });
 
 app.get("/getSummary", async (req, res) => {
-  // await APIManager.update();
   console.log("Getting Summary");
   result = await APIFragmentHandler.getnRecentFragments();
 
@@ -123,7 +111,6 @@ app.get("/getRecents", async (req, res) => {
 });
 
 app.post("/getSummaryForDate", async (req, res) => {
-  // await APIManager.update();
   console.log("Getting summary for date " + req.body.date);
   result = await APIFragmentHandler.getFragmentsFromDate(req.body.date);
 
@@ -141,7 +128,6 @@ app.post("/getSummaryForDate", async (req, res) => {
 });
 
 app.post("/getAPISummaryForDate", async (req, res) => {
-  // await APIManager.update();
   console.log("Getting API summary for date " + req.body.date);
   result = await APIFragmentHandler.getFragmentsFromDate(req.body.date);
 
@@ -166,7 +152,6 @@ app.get("/getSummariesByDate", async (req, res) => {
 });
 
 app.post("/getnFragments", async (req, res) => {
-  // await APIManager.update();
   console.log("Getting " + req.body.n + " Fragments");
   result = await APIFragmentHandler.getnRecentFragments(req.body.n);
   console.log(result);
@@ -174,15 +159,12 @@ app.post("/getnFragments", async (req, res) => {
 });
 
 app.post("/getFragmentsFromDate", async (req, res) => {
-  // await APIManager.update();
   console.log("Getting fragments from date " + req.body.date);
   result = await APIFragmentHandler.getFragmentsFromDate(req.body.date);
-  // console.log(result);
   res.send(result);
 });
 
 app.post("/getAPIFragmentsFromDate", async (req, res) => {
-  // await APIManager.update();
   console.log(
     "Getting " + req.body.api + " fragments from date " + req.body.date
   );
@@ -199,32 +181,6 @@ app.listen(port, async function () {
 
   APIManager.update();
 
-  // res = await APILastUpdatedHandler.getAllLastUpdated();
-  // res = await APILastUpdatedHandler.update("twitter");
-
-  // console.log(res);
-  // res = await APIFragmentHandler.insertFragment(
-  //   "test",
-  //   "testapi",
-  //   "imgurl",
-  //   "body",
-  //   "1592142682000",
-  // 1,
-  // {title: "testtitle"}
-  // );
-  // console.log(res);
-
-  // res = await APIFragmentHandler.getnRecentFragments(1);
-  // console.log(res);
-
-  // res = await APIFragmentHandler.getMostRecentFragment("lastfm");
-  // console.log(res[0].occur_date);
-  // last_accessed = Math.floor(Date.parse(res[0].occur_date) / 1000);
-  // console.log(last_accessed);
-  // res = await APIFragmentHandler.deleteFragmentsFromAPI("github");
-  // console.log(res);
-  // result = await APIFragmentHandler.removeDuplicates();
-  // console.log(result);
-  // TwitterHandler.update();
-  // GithubHandler.update();
+  result = await APIFragmentHandler.removeDuplicates();
+  console.log(result);
 });

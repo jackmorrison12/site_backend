@@ -16,7 +16,6 @@ var client = new Twitter({
 
 // Use this npm package: https://www.npmjs.com/package/twitter
 
-//Remember BST again
 module.exports = class TwitterHandler {
   constructor() {}
 

@@ -26,12 +26,16 @@ function isBST(date) {
 
 module.exports = class APIFragmentHandler {
   constructor() {}
+
+  // Return the n most recent fragments, or if no n is given, all fragments
   static async getnRecentFragments(n) {
     const res = APIFragment.find()
       .sort({ occur_date: "descending" })
       .limit(parseInt(n));
     return res;
   }
+
+  // Return the most recent fragment for a given API
   static async getMostRecentFragment(api) {
     const res = APIFragment.find({ api: api })
       .sort({ occur_date: "descending" })
@@ -39,6 +43,7 @@ module.exports = class APIFragmentHandler {
     return res;
   }
 
+  // Return all fragments from a given date
   static async getFragmentsFromDate(date) {
     var upperDate = new Date(Date.parse(date) + 86400000);
     if (isBST(date)) {
@@ -53,6 +58,8 @@ module.exports = class APIFragmentHandler {
     return res;
   }
 
+  // Return all of the API fragments for a given API and date number (where dateNum is the
+  // 13 - number of days ago you're looking for)
   static async getAPIFragmentsFromDate(api, dateNum) {
     dateNum = 13 - dateNum;
     var d = new Date().toLocaleString("en-GB", { timeZone: "Europe/London" });
@@ -78,6 +85,7 @@ module.exports = class APIFragmentHandler {
     return res;
   }
 
+  // Return the number of interactions for each type of fragment every day for the last 14 days
   static async getSummaryGroupedByDate() {
     var d = new Date().toLocaleString("en-GB", { timeZone: "Europe/London" });
     var date = new Date(d).setUTCHours(0, 0, 0, 0);
@@ -124,6 +132,7 @@ module.exports = class APIFragmentHandler {
     return data;
   }
 
+  // Return the number of interactions for each API every day for the last 14 days
   static async getAPISummaryGroupedByDate() {
     var d = new Date().toLocaleString("en-GB", { timeZone: "Europe/London" });
     var date = new Date(d).setUTCHours(0, 0, 0, 0);
@@ -172,6 +181,7 @@ module.exports = class APIFragmentHandler {
     return data;
   }
 
+  // Insert an APIFragment into the database
   static async insertFragment(type, api, image, body, occur_date, count, meta) {
     var fragment = new APIFragment({
       type: type,
@@ -194,6 +204,7 @@ module.exports = class APIFragmentHandler {
     return res;
   }
 
+  // Remove any duplicate APIFragment entries from the Database
   static async removeDuplicates() {
     const res = await APIFragment.find().sort({ occur_date: "descending" });
     for (const doc of res) {

@@ -4,6 +4,8 @@
 
 This is the git repo for the backend of my personal site, hosted at [jackmorrison.xyz](https://jackmorrison.xyz)
 
+The API is hosted at [api.jackmorrison.xyz](https://api.jackmorrison.xyz)
+
 It handles the information retrieved for the [live page](https://jackmorrison.xyz/live), as well as other features, such as the recently accessed social media services on the home page.
 
 ## 🛠 How it's built

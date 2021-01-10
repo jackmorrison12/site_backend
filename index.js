@@ -1,5 +1,5 @@
-var ApiFragmentHandler = require("./apiFragmentHandler.js");
-var APIManager = require("./apiManager.js");
+const ApiFragmentHandler = require("./apiFragmentHandler.js");
+const APIManager = require("./apiManager.js");
 // Import express
 let express = require("express");
 // Import Body parser
